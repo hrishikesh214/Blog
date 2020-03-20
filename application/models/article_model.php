@@ -11,6 +11,11 @@ class Article_model extends CI_Model{
 		}
 	}
 
+	public function m_get_tags($strTags){
+		$arrayTags = explode(',', $strTags);
+		return $arrayTags;
+	}
+
 	public function m_get_id(){
 		$e = rand();
 		$c = $this->db->query("SELECT * FROM `articles` WHERE article_id = '".$e."'");

@@ -19,7 +19,7 @@ class Articles extends MY_Controller{
 		$data['articles'] = $articles; 
 		// echo "<pre>";
 		// print_r($data['articles']);
-		$this->load->view('articles_view',$data);
+			$this->load->view('articles_view',$data);
 	}
 
 	public function add_article(){

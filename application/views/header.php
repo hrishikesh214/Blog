@@ -21,6 +21,17 @@
 		overflow-y: auto;
 		max-height: 80vh;
 	}
+	.content::-webkit-scrollbar{
+		background-color: rgba(0,0,0,0.15);
+		width:8px;
+	}
+	.content::-webkit-scrollbar-thumb{
+		background-color: black;
+	}
+	.content::-webkit-scrollbar-button{
+
+		background-color: rgba(0,0,0,0.5);
+	}
 </style>
 
 <body>
