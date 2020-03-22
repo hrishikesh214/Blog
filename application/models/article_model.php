@@ -27,7 +27,7 @@ class Article_model extends CI_Model{
 		}
 	}
 
-	public function m_get_articles(){
+	public function m_get_articles_all(){
 		$filter = "*";
 		$this->db->select('*');
 		$this->db->order_by('article_time','DESC');
@@ -37,6 +37,23 @@ class Article_model extends CI_Model{
 		}
 		$q = $this->db->get('articles');
 		return $q->result_array();
+	}
+
+	public function m_get_articles($tags){
+		$articles = $this->m_get_articles_all();
+		$final_articles = array();
+		$req_tags = $this->m_get_tags($tags);
+		foreach ($articles as $article) {
+			$article_array_tags = $this->m_get_tags($article['article_tags']);
+			foreach ($req_tags as $req_tag) {
+				$check = in_array($req_tag, $article_array_tags);
+				if($check){
+					array_push($final_articles, $article);
+					break;
+				}
+			}
+		}
+		return $final_articles;
 	}
 }
 

@@ -8,7 +8,15 @@ class Articles extends MY_Controller{
 
 	public function view_articles(){
 		$this->load->model('article_model','am');
-		$as =$this->am->m_get_articles();
+		if($this->checkSession()){
+			$f = $this->getDetails($_SESSION['userid']);
+			$user_tags = $f['user_tags'];
+			$as =$this->am->m_get_articles($user_tags);
+		}
+		else{
+			$as =$this->am->m_get_articles_all();
+		}
+		//$this->c_debug($as);
 		$articles = array();
 		$i = 0;
 		foreach ($as as $a) {
@@ -17,9 +25,8 @@ class Articles extends MY_Controller{
 			$i++;
 		}
 		$data['articles'] = $articles; 
-		// echo "<pre>";
-		// print_r($data['articles']);
-			$this->load->view('articles_view',$data);
+		//$this->c_debud($data['articles']);
+		$this->load->view('articles_view',$data);
 	}
 
 	public function add_article(){
@@ -28,9 +35,9 @@ class Articles extends MY_Controller{
 	public function post_article(){
 		$this->load->model('article_model','am');
 		$data['article_tags'] = 'all,';
-		$data['article_title'] = $this->input->post('article_title');
+		$data['article_title'] = $this->db->escape_str($this->input->post('article_title'));
 		$data['article_body'] = $this->input->post('article_body');
-		$data['article_tags'] = $data['article_tags'].$this->input->post('articles_tags');
+		$data['article_tags'] = $data['article_tags'] . $this->db->escape_str($this->input->post('article_tags'));
 		$data['article_id'] = $this->am->m_get_id();
 		$data['article_time'] = NULL;
 		$data['article_poster_id'] = $_SESSION['userid'];

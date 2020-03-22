@@ -3,15 +3,20 @@
 class Login_model extends CI_Model{
 
 	public function match($u,$p){
-		$p = md5($p);
+		//$p = $this->db->escape(password_hash($p, PASSWORD_BCRYPT));
 		$this->db->select("*");
-		$this->db->where(array('username'=>$u,'password'=>$p));
+		$this->db->where('username',$u);
 		$q = $this->db->get('logs');
-		if($q->num_rows()){
-			return $q->result_array();
+		if($q->num_rows()>0){
+			if(password_verify($p, $q->row_array()['password'])){
+				return $q->result_array();
+			}
+			else{
+				return array( 0 => false , 'error' => "Password didn't matched!");
+			}
 		}
 		else{
-			return array( 0 => false , 'error' => 'Username And Password Didnt matched!');
+			return array( 0 => false , 'error' => "Username Doesn't exists!");
 		}
 	}
 }

@@ -24,6 +24,12 @@ class MY_Controller extends CI_Controller{
 		$q = $this->db->get('logs');
 		return $q->result_array()[0];
 	}
+
+	public function c_debug($e){
+		echo "<pre>";
+		print_r($e);
+		echo "</pre>";
+	}
 }
 
 
