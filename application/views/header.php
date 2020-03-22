@@ -13,6 +13,19 @@
 		padding-left: 10px;
 		padding-right: 10px;
 	}
+	.logo{
+		animation: logo-anim 4s infinite alternate ease;
+		font-family:'caveat',cursive;
+	}
+	@keyframes logo-anim{
+		0%{}
+		50%{
+			text-shadow: 0px 0px 30px white;
+		}
+		100%{
+			text-shadow: 0px 0px 10px black;
+		}
+	}
 	.sidebar{
 		height:80vh;
 	}
@@ -22,22 +35,29 @@
 		max-height: 80vh;
 	}
 	.content::-webkit-scrollbar{
-		background-color: rgba(0,0,0,0.15);
-		width:8px;
+		background-color: rgba(0,0,0,0.4);
+		width:6px;
 	}
 	.content::-webkit-scrollbar-thumb{
 		background-color: black;
 	}
 	.content::-webkit-scrollbar-button{
 
-		background-color: rgba(0,0,0,0.5);
+		background-color: rgba(0,0,0,0.7);
+	}
+	.bg-black{
+		background-color: black;
 	}
 </style>
 
 <body>
-
+	<script type="text/javascript">
+		function redirect_base(){
+			window.location='<?=base_url()?>';
+		}
+	</script>
 	<nav class="navbar navbar-expand-sm fixed-top navbar-dark bg-primary">
-		<div class="navbar-brand"><h2>Blog</h2></div>
+		<div class="navbar-brand"><h2 onclick="javascript:redirect_base()" class="logo">DreamBlog</h2></div>
 		<div>
 			<ul class="navbar-nav right">
 				<li class="items"><a href="<?=base_url().'Articles'?>" class="nav-link">Articles</a></li>
