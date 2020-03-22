@@ -78,6 +78,7 @@
 				<div class="col-lg-2 fixed-left sidebar bg-primary">
 					<ul class="navbar-nav">
 						<li class="items"><a href="'.base_url('/Profile').'" class="nav-link text-white">Profile</a></li>
+						<li class="items"><a href="'.base_url().'Articles/my_articles" class="nav-link text-white">My Articles</a></li>
 						<li class="items"><a href="'.base_url().'Articles/add_article" class="nav-link text-white">Add</a></li>
 					</ul>
 					';

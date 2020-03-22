@@ -17,6 +17,7 @@ class Articles extends MY_Controller{
 			$as =$this->am->m_get_articles_all();
 		}
 		//$this->c_debug($as);
+
 		$articles = array();
 		$i = 0;
 		foreach ($as as $a) {
@@ -24,8 +25,37 @@ class Articles extends MY_Controller{
 			$articles[$i] = $a;
 			$i++;
 		}
+
 		$data['articles'] = $articles; 
 		//$this->c_debud($data['articles']);
+		$this->load->view('articles_view',$data);
+	}
+
+	public function my_articles(){
+		$this->load->model('article_model','am');
+		if($this->checkSession()){
+			$f = $this->getDetails($_SESSION['userid']);
+			$user_tags = $f['user_tags'];
+			$as =$this->am->m_get_my_articles();
+		}
+		else{
+			redirect(base_url('/Login'));
+		}
+		//$this->c_debug($as);
+		if($as !== false){
+			$articles = array();
+			$i = 0;
+			foreach ($as as $a) {
+				$a = array_merge($a,$this->getDetails($a['article_poster_id']));
+				$articles[$i] = $a;
+				$i++;
+			}
+			$data['articles'] = $articles; 
+		}
+		else{
+			$data['no_article_msg'] = "You have not posted any Articles yet!";
+		}
+		//$this->c_debug($data['articles']);
 		$this->load->view('articles_view',$data);
 	}
 

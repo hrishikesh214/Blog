@@ -39,6 +39,20 @@ class Article_model extends CI_Model{
 		return $q->result_array();
 	}
 
+	public function m_get_my_articles(){
+
+		$this->db->select("*");
+		$this->db->where('article_poster_id',$_SESSION['userid']);
+		$this->db->order_by('article_time','DESC');
+		$q = $this->db->get('articles');
+		if($q->num_rows()>0){
+			return $q->result_array();
+		}
+		else{
+			return false;
+		}
+	}
+
 	public function m_get_articles($tags){
 		$articles = $this->m_get_articles_all();
 		$final_articles = array();
