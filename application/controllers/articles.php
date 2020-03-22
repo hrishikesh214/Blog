@@ -36,7 +36,7 @@ class Articles extends MY_Controller{
 		$this->load->model('article_model','am');
 		$data['article_tags'] = 'all,';
 		$data['article_title'] = $this->db->escape_str($this->input->post('article_title'));
-		$data['article_body'] = $this->input->post('article_body');
+		$data['article_body'] = $this->db->escape_str($this->input->post('article_body'));
 		$data['article_tags'] = $data['article_tags'] . $this->db->escape_str($this->input->post('article_tags'));
 		$data['article_id'] = $this->am->m_get_id();
 		$data['article_time'] = NULL;
