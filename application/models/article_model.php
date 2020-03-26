@@ -69,6 +69,46 @@ class Article_model extends CI_Model{
 		}
 		return $final_articles;
 	}
+
+	public function m_get_details_article($article_id){
+
+		if(isset($_SESSION['userid'])){
+			$this->db->select('*');
+			$this->db->where(array('article_id'=>$article_id,'article_poster_id'=>$_SESSION['userid']));
+			$q = $this->db->get('articles');
+			if($q->num_rows()){
+				return array('type'=>true,'value'=>$q->row_array());
+			}
+			else{
+				return array('type'=>false,'error'=>'Article Not found or you may not be authorized to it!');
+			}
+		}
+		else{
+			return array('type'=>false,'error'=>'You are not logged in!');
+		}
+	}
+
+	public function m_delete_article($article_id){
+		if(isset($_SESSION['userid'])){
+			$this->db->select('article_poster_id');
+			$this->db->where('article_id',$article_id);
+			$article_poster_id = $this->db->get('articles')->row_array()['article_poster_id'];
+			if($article_poster_id===NULL){
+				return array('type'=>false,'error'=>'Article Not Found!');
+			}
+			if($_SESSION['userid'] == $article_poster_id){
+				$this->db->where('article_id',$article_id);
+				$d = $this->db->delete('articles');
+				return true;
+			}
+			else{
+				return array('type'=>false,'error'=>'Authorization Failed!');
+			}
+		}
+		else{
+			return array('type'=>false,'error'=>'You are not logged in!');
+		}
+	}
 }
 
 

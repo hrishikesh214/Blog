@@ -105,6 +105,64 @@ class Articles extends MY_Controller{
 		}
 
 	}
+
+	public function Settings(){
+
+		$article_id = intval($this->uri->segment(3));
+		//echo $article_id;
+		$this->load->model('article_model','am');
+		$v = $this->am->m_get_details_article($article_id);
+		
+		if($v['type']){
+			$data['article']=$v['value'];
+			$this->load->view('article_setting',$data);
+		}
+		else{
+			$data['curr_msg'] = $v['error'];
+			$as = $this->am->m_get_articles_all();
+			$articles = array();
+			$i = 0;
+			foreach ($as as $a) {
+				$a = array_merge($a,$this->getDetails($a['article_poster_id']));
+				$articles[$i] = $a;
+				$i++;
+			}
+			$data['articles'] = $articles; 
+			$this->load->view('articles_view',$data);
+		}
+
+	}
+
+	public function confirm_delete(){
+		if($this->checkSession()){
+			$data['cdm'] = intval($this->uri->segment(3));
+			$this->load->view('confirm_delete_view',$data);
+		}
+		else{
+			redirect($this->rBase());
+		}
+		
+	}
+	public function delete_article(){
+		$this->load->model('article_model','am');
+		$d = $this->am->m_delete_article($this->uri->segment(3));
+		$as = $this->am->m_get_articles_all();
+		$articles = array();
+		$i = 0;
+		foreach ($as as $a) {
+			$a = array_merge($a,$this->getDetails($a['article_poster_id']));
+			$articles[$i] = $a;
+			$i++;
+		}
+		$data['articles'] = $articles; 
+		if($d['type']){
+			$data['curr_msg'] = "One Article Deleted!";
+		}
+		else{
+			$data['curr_msg'] = $d['error'];
+		}
+		$this->load->view('articles_view',$data);
+	}
 }
 
 

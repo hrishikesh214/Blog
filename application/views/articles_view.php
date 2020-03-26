@@ -7,7 +7,15 @@
 
 <?php if(isset($articles)):foreach($articles as $article): ?>
 <div class="card">
-	<div class="card-header bg-dark text-white"><?=$article['article_title'] ?></div>
+	<div class="card-header bg-dark text-white">
+		<?=$article['article_title'] ?>
+		<?php if(isset($_SESSION['userid'])): if ($_SESSION['userid'] == $article['article_poster_id']): ?>
+			<a href="<?=base_url("/Articles/Settings/".$article['article_id'])?>">
+				<span class="float-sm-right text-white fa fa-cog"></span>	
+			</a>
+		<?php endif ?>
+		<?php endif ?>
+	</div>
 	<div class="card-title"><?="By <strong>".$article['firstname']." ".$article['lastname']?> </strong> at <?=$article['article_time'] ?></div>
 	<div class="card-body">
 		<?=$article['article_body']?>
