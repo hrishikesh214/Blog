@@ -7,7 +7,7 @@
 		<div class="card card-dark">
 			<div class="card-header h3 text-white bg-primary">Article Settings</div>
 			<div class="card-body">
-				<form action="<?//=base_url()?>" method="post" class="form">
+				<form action="<?=base_url('/Articles/update_article/'.$article['article_id'])?>" method="post" class="form">
 					<div class="form-group">
 						<legend>Title</legend>
 						<span class="text-danger"><?=form_error('article_title')?></span>

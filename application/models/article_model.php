@@ -109,6 +109,25 @@ class Article_model extends CI_Model{
 			return array('type'=>false,'error'=>'You are not logged in!');
 		}
 	}
+
+	public function m_update_article($article_id,$new_data){
+		if(isset($_SESSION['userid'])){
+			$this->db->select('article_poster_id');
+			$this->db->where('article_id',$article_id);
+			$article_poster_id = $this->db->get('articles')->row_array()['article_poster_id'];
+			if($_SESSION['userid'] == $article_poster_id){
+				unset($new_data['submit']);
+				$this->db->where('article_id',$article_id);
+				return array('type'=>$this->db->update('articles',$new_data));
+			}
+			else{
+				return array('type'=>true,'error'=>'Authorization failed!');
+			}
+		}
+		else{
+			return array('type'=>false,'error'=>'You are not logged in!');
+		}
+	}
 }
 
 

@@ -163,6 +163,28 @@ class Articles extends MY_Controller{
 		}
 		$this->load->view('articles_view',$data);
 	}
+
+	public function update_article(){
+		$this->load->model('article_model','am');
+		$new_data=$this->input->post();
+		$u = $this->am->m_update_article($this->uri->segment(3),$new_data);
+		$as = $this->am->m_get_articles_all();
+		$articles = array();
+		$i = 0;
+		foreach ($as as $a) {
+			$a = array_merge($a,$this->getDetails($a['article_poster_id']));
+			$articles[$i] = $a;
+			$i++;
+		}
+		$data['articles'] = $articles; 
+		if($u['type']){
+			$data['curr_msg'] = "One Article updated! ";
+		}
+		else{
+			$data['curr_msg'] = $u['error'];
+		}
+		$this->load->view('articles_view',$data);
+	}
 }
 
 
