@@ -128,6 +128,33 @@ class Article_model extends CI_Model{
 			return array('type'=>false,'error'=>'You are not logged in!');
 		}
 	}
+
+	public function like_calc($article_id){
+		$this->db->select('*');
+		$this->db->where('like_article_id',$article_id);
+		$q = $this->db->get('likes');
+		return array('article_likes' => $q->num_rows()); 
+	}
+
+	public function m_update_like($article_id){
+		$like_data = array('like_article_id'=> $article_id, 'like_userid'=>$_SESSION['userid']);
+
+		$this->db->select('*');
+		$this->db->where($like_data);
+		$q = $this->db->get('likes');
+		
+		if($q->num_rows() == null || $q->num_rows() == 0){
+			$this->db->insert('likes',$like_data);
+			
+			return true;
+		}
+		else{
+			$this->db->where($like_data);
+			$this->db->delete('likes');
+			return true;
+		}
+
+	}
 }
 
 

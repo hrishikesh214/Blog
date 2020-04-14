@@ -22,6 +22,7 @@ class Articles extends MY_Controller{
 		$i = 0;
 		foreach ($as as $a) {
 			$a = array_merge($a,$this->getDetails($a['article_poster_id']));
+			$a = array_merge($a,$this->am->like_calc($a['article_id']));
 			$articles[$i] = $a;
 			$i++;
 		}
@@ -47,6 +48,7 @@ class Articles extends MY_Controller{
 			$i = 0;
 			foreach ($as as $a) {
 				$a = array_merge($a,$this->getDetails($a['article_poster_id']));
+				$a = array_merge($a,$this->am->like_calc($a['article_id']));
 				$articles[$i] = $a;
 				$i++;
 			}
@@ -64,7 +66,7 @@ class Articles extends MY_Controller{
 	}
 	public function post_article(){
 		$this->load->model('article_model','am');
-		$data['article_tags'] = 'all,';
+		$data['article_tags'] = 'default,';
 		$data['article_title'] = $this->db->escape_str($this->input->post('article_title'));
 		$data['article_body'] = $this->db->escape_str($this->input->post('article_body'));
 		$data['article_tags'] = $data['article_tags'] . $this->db->escape_str($this->input->post('article_tags'));
@@ -143,6 +145,7 @@ class Articles extends MY_Controller{
 		}
 		
 	}
+
 	public function delete_article(){
 		$this->load->model('article_model','am');
 		$d = $this->am->m_delete_article($this->uri->segment(3));
@@ -185,7 +188,24 @@ class Articles extends MY_Controller{
 		}
 		$this->load->view('articles_view',$data);
 	}
+
+	public function like(){
+		if($this->checkSession()){
+			$this->load->model('article_model','am');
+			$ai = intval($this->uri->segment(3));
+			$l = $this->am->m_update_like($ai);
+			if($l){
+				echo "done";
+			}
+			else{
+				echo 'notdone';
+			}
+		}
+		else{
+			redirect(base_url());
+		}
+	}
 }
 
 
- ?>
+?>

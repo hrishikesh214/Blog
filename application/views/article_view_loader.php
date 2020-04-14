@@ -1,11 +1,3 @@
-<?php require 'header.php'; ?>
-
-<style type="text/css">
-	.like-icon,.likes{
-		font-size:17px;
-	}
-</style>
-
 <div class="container text-bold">
 	<strong><?=isset($no_article_msg)?$no_article_msg:""?></strong>
 </div>
@@ -29,13 +21,10 @@
 		<div class="container like-click" 
 		onclick="javascript:dL('<?=base_url('/Articles/Like/'.$article['article_id'])?>')">
 			<span class="likes"><?=$article['article_likes']?></span>
-			<span class="like-icon text-danger fa fa-<?="heart"?>"></span>
+			<span class="like-icon text-danger fa fa-heart"></span>
 		</div>
 	</div>
 </div><br><br>
 
 <?php endforeach ?>
 <?php endif ?>
-
-
-<?php require 'footer.php'; ?>
