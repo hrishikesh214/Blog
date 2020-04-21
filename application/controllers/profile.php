@@ -42,6 +42,7 @@ class Profile extends MY_Controller{
 					$isPassChange = TRUE;
 				}
 				$new_details['password'] = password_hash($new_details['password'], PASSWORD_BCRYPT);
+				
 				//$this->c_debug($new_details);
 				
 				if($this->pm->update($new_details,$isPassChange)){

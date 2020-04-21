@@ -26,7 +26,7 @@
 		<?=$article['article_body']?>
 	</div>
 	<div class="card-footer bg-dark text-white">
-		<div class="container like-click" 
+		<div class="like-click" 
 		onclick="javascript:dL('<?=base_url('/Articles/Like/'.$article['article_id'])?>')">
 			<span class="likes"><?=$article['article_likes']?></span>
 			<span class="like-icon text-danger fa fa-<?="heart"?>"></span>

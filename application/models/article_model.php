@@ -63,7 +63,7 @@ class Article_model extends CI_Model{
 				$check = in_array($req_tag, $article_array_tags);
 				if($check){
 					array_push($final_articles, $article);
-					break;
+					break; 
 				}
 			}
 		}
