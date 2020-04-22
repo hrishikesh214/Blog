@@ -1,3 +1,12 @@
+<?php 
+if(isset($_SESSION['userid'])){
+		$like_color= "danger";
+	}
+	else{
+		$like_color= "white";
+	}
+
+ ?>
 <?php require 'header.php'; ?>
 
 <style type="text/css">
@@ -11,6 +20,21 @@
 </div>
 
 <?php if(isset($articles)):foreach($articles as $article): ?>
+<?php 
+
+if(isset($_SESSION['userid'])){
+		if($article['article_is_like']){
+			$like_icon =  "heart";
+		}
+		else{
+			$like_icon = "heart-o";
+		}
+	}
+	else{
+		$like_icon = "heart";
+	}
+
+ ?>
 <div class="card">
 	<div class="card-header bg-dark text-white">
 		<?=$article['article_title'] ?>
@@ -29,28 +53,7 @@
 		<div style="cursor: pointer;width: auto;" class="container-fluid like-click" 
 		onclick="javascript:dL('<?=$article['article_id']?>')">
 			<span id="<?='G_'.$article['article_id']?>" class="likes"><?=$article['article_likes']?></span>
-			<span id="<?='I_'.$article['article_id']?>" class="like-icon text-<?php 
-	if(isset($_SESSION['userid'])){
-		echo "danger";
-	}
-	else{
-		echo "white";
-	}
-
- ?> fa fa-<?php 
-	if(isset($_SESSION['userid'])){
-		if($article['article_is_like']){
-			echo "heart";
-		}
-		else{
-			echo "heart-o";
-		}
-	}
-	else{
-		echo "heart";
-	}
-
- ?>"></span>
+			<span id="<?='I_'.$article['article_id']?>" class="like-icon text-<?=$like_color?> fa fa-<?=$like_icon?>"></span>
 		</div>
 	</div>
 </div><br><br>
@@ -60,5 +63,3 @@
 
 
 <?php require 'footer.php'; ?>
-
-
