@@ -146,14 +146,25 @@ class Article_model extends CI_Model{
 		if($q->num_rows() == null || $q->num_rows() == 0){
 			$this->db->insert('likes',$like_data);
 			
-			return true;
+			return array('status'=>true,'is_like'=>'true');
 		}
 		else{
 			$this->db->where($like_data);
 			$this->db->delete('likes');
-			return true;
+			return array('status'=>true,'is_like'=>'false');
 		}
 
+	}
+	public function is_like($a){
+		$this->db->select('*');
+		$this->db->where(array('like_article_id'=> $a, 'like_userid'=>$_SESSION['userid']));
+		$q = $this->db->get('likes');
+		if($q->num_rows()>0){
+			return array('article_is_like'=>true);
+		}
+		else{
+			return array('article_is_like'=>false);
+		}
 	}
 }
 

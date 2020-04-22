@@ -23,6 +23,7 @@ class Articles extends MY_Controller{
 		foreach ($as as $a) {
 			$a = array_merge($a,$this->getDetails($a['article_poster_id']));
 			$a = array_merge($a,$this->am->like_calc($a['article_id']));
+			if($this->checkSession()){$a = array_merge($a,$this->am->is_like($a['article_id']));}
 			$articles[$i] = $a;
 			$i++;
 		}
@@ -49,6 +50,7 @@ class Articles extends MY_Controller{
 			foreach ($as as $a) {
 				$a = array_merge($a,$this->getDetails($a['article_poster_id']));
 				$a = array_merge($a,$this->am->like_calc($a['article_id']));
+				$a = array_merge($a,$this->am->is_like($a['article_id']));
 				$articles[$i] = $a;
 				$i++;
 			}
@@ -176,6 +178,8 @@ class Articles extends MY_Controller{
 		$i = 0;
 		foreach ($as as $a) {
 			$a = array_merge($a,$this->getDetails($a['article_poster_id']));
+			$a = array_merge($a,$this->am->like_calc($a['article_id']));
+			$a = array_merge($a,$this->am->is_like($a['article_id']));
 			$articles[$i] = $a;
 			$i++;
 		}
@@ -194,8 +198,8 @@ class Articles extends MY_Controller{
 			$this->load->model('article_model','am');
 			$ai = intval($this->uri->segment(3));
 			$l = $this->am->m_update_like($ai);
-			if($l){
-				echo "done";
+			if($l['status']){
+				echo $l['is_like'];
 			}
 			else{
 				echo 'notdone';

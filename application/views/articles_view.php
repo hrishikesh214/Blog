@@ -26,10 +26,31 @@
 		<?=$article['article_body']?>
 	</div>
 	<div class="card-footer bg-dark text-white">
-		<div class="like-click" 
-		onclick="javascript:dL('<?=base_url('/Articles/Like/'.$article['article_id'])?>')">
-			<span class="likes"><?=$article['article_likes']?></span>
-			<span class="like-icon text-danger fa fa-<?="heart"?>"></span>
+		<div style="cursor: pointer;width: auto;" class="container-fluid like-click" 
+		onclick="javascript:dL('<?=$article['article_id']?>')">
+			<span id="<?='G_'.$article['article_id']?>" class="likes"><?=$article['article_likes']?></span>
+			<span id="<?='I_'.$article['article_id']?>" class="like-icon text-<?php 
+	if(isset($_SESSION['userid'])){
+		echo "danger";
+	}
+	else{
+		echo "white";
+	}
+
+ ?> fa fa-<?php 
+	if(isset($_SESSION['userid'])){
+		if($article['article_is_like']){
+			echo "heart";
+		}
+		else{
+			echo "heart-o";
+		}
+	}
+	else{
+		echo "heart";
+	}
+
+ ?>"></span>
 		</div>
 	</div>
 </div><br><br>
@@ -39,3 +60,5 @@
 
 
 <?php require 'footer.php'; ?>
+
+

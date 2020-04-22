@@ -71,7 +71,7 @@
 
 	.navbar { background-color: #484848; }
 	.navbar .navbar-nav .nav-link { color: #fff; }
-	.navbar .navbar-nav .nav-link:hover { color: #fbc531; }
+	.navbar .navbar-nav .nav-link:hover { text-shadow: yellow 0px 0px 5px; }
 	.navbar .navbar-nav .active > .nav-link { color: #fbc531; }
 
 	footer a.text-light:hover { color: #fed136!important; text-decoration: none; }
@@ -91,21 +91,33 @@
 		}
 	</script>
 	<script type="text/javascript">
-		function dL(url){	
+		function dL(aId){	
+			// console.log('wait');
+			obj = 'G_'+aId;
+			ico = 'I_'+aId;
 			$.ajax({
-				url:url,
+				url:'<?=base_url('/Articles/Like/')?>'+aId,
 				success:function(response){
-					if(response == 'done'){
+					let like_count = parseInt($("#"+obj).text());
+					if(response == 'true'){
 						//window.location='<?=base_url('/Articles/view_articles')?>';
-						let curr = this.value;
-						curr = curr+1;
-						this.value = curr;
+						like_count = like_count + 1;
+						document.getElementById(obj).innerHTML = like_count;
+						$('#'+ico).removeClass('fa-heart-o');
+						$('#'+ico).addClass('fa-heart');
+					}
+					else if (response == 'false'){
+						like_count = like_count - 1;
+						document.getElementById(obj).innerHTML = like_count;
+						$('#'+ico).removeClass('fa-heart');
+						$('#'+ico).addClass('fa-heart-o');
 					}
 					else if (response == 'notdone'){
-
+						// console.log('fail');
 					}
 				}
 			});
+			// alert(aId);
 		}
 	</script>
 
@@ -130,7 +142,7 @@
 						<?php echo isset($_SESSION['userid'])?'<a class="nav-link" href="'.base_url().'Logout">Logout</a>':'<a class="nav-link" href="'.base_url().'Login">Login</a>'; ?>
 					</li>
 					<!-- <li class="nav-item pl-1">
-						<a class="nav-link" href="#">Kayıt Ol</a>
+						<a class="nav-link" href="#"></a>
 					</li> -->
 					
 
