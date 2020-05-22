@@ -18,10 +18,19 @@
 						<textarea name="article_body" style="height: 30vh;" class="form-control"><?=isset($article['article_body'])?$article['article_body']:''?></textarea>
 					</div>
 					<div class="form-group">
-						<legend>Tags <span class="text-info">(Use comma(,) to separate tags)</span></legend>
+						<legend>Tags</legend>
 						
-						<input name="article_tags" value="<?=isset($article['article_tags'])?$article['article_tags']:''?>" type="text" class="form-control">
-					</div>
+						<?php 
+						foreach ($all_tags as $tag) :?>
+							
+							<div class="form-check form-check-inline">
+								<input name="article_tags[]" type="checkbox" class="form-check-input" <?=$tag['checked']?'checked':''?> value="<?=$tag['value']?>">
+								<label class="form-check-label"><?=$tag['value']?></label>
+							</div>		
+						<?php endforeach ?>
+
+						
+						</div>
 					<div class="form-group">
 						<input type="submit" name="submit" value="Save" class="btn btn-primary">
 						<a class="btn btn-danger" href="<?=base_url('/Articles/confirm_delete/'.$article['article_id'])?>">Delete</a>

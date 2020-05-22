@@ -17,7 +17,26 @@ class Profile extends MY_Controller{
 	}
 	public function change_my_profile(){
 		if($this->checkSession()){
+			$this->load->model('article_model','am');
+		
 			$data['details'] = $this->getDetails($_SESSION['userid']);
+			$data['details']['aval_tags'] = $this->am->getAvalTags();
+			unset($data['details']['password']);
+			$data['details']['user_tags_array'] = explode(",", $data['details']['user_tags']);
+			$data['details']['all_tags'] = array();			
+			foreach ($data['details']['aval_tags'] as $aval_tag) {
+				if(in_array($aval_tag, $data['details']['user_tags_array'])){
+					array_push($data['details']['all_tags'],array('checked'=>true,'value'=>$aval_tag));
+				}
+				else{
+					array_push($data['details']['all_tags'],array('checked'=>false,'value'=>$aval_tag));
+				}
+			}
+			unset($data['details']['aval_tags']);
+			unset($data['details']['user_tags_array']);
+			$data['details']['user_tags']=$data['details']['all_tags'];
+			unset($data['details']['all_tags']);
+			//$this->c_debug($data['details']);
 			$this->load->view('change_profile_view',$data);
 		}
 		else{
@@ -28,6 +47,9 @@ class Profile extends MY_Controller{
 		$isPassChange = FALSE;
 		if($this->checkSession()){
 			$new_details = $this->input->post();
+			$new_details['user_tags'] = implode(",", $new_details['user_tags']);
+			// $this->c_debug($new_details);
+
 			$this->load->model('profile_model','pm');
 			if($new_details['password'] != $new_details['c_password']){
 				$data['details'] = $this->getDetails($_SESSION['userid']);

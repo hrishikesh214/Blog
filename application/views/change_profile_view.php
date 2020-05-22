@@ -27,7 +27,12 @@
 	</div>
 	<div class="form-group">
 		<legend>Favorite Tags</legend>
-		<input type="text" name="user_tags" class="form-control" value="<?=$details['user_tags']?>">
+			<?php foreach ($details['user_tags'] as $tag) :?>			
+				<div class="form-check form-check-inline">
+					<input name="user_tags[]" type="checkbox" class="form-check-input" <?=$tag['checked']?'checked':''?> value="<?=$tag['value']?>">
+					<label class="form-check-label"><?=$tag['value']?></label>
+				</div>		
+			<?php endforeach ?>
 	</div>
 	<div class="form-group">
 		<input class="btn btn-primary" type="submit"  value="Update">

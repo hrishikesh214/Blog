@@ -51,7 +51,6 @@
 		background-color: black;
 	}
 	.content::-webkit-scrollbar-button{
-
 		background-color: rgba(0,0,0,0.7);
 	}
 	.content::-ms-scrollbar{
@@ -62,9 +61,8 @@
 		background-color: black;
 	}
 	.content::-ms-scrollbar-button{
-
 		background-color: rgba(0,0,0,0.7);
-	}
+	}0
 	.bg-black{
 		background-color: black;
 	}
@@ -85,10 +83,10 @@
 		function redirect_base(){
 			window.location='<?=base_url()?>';
 		}
-		function refreshPage () {
-			var page_y = $( document ).scrollTop();
-			window.location.href = window.location.href + '?page_y=' + page_y;
-		}
+		// function refreshPage () {
+		// 	var page_y = $( document ).scrollTop();
+		// 	window.location.href = window.location.href + '?page_y=' + page_y;
+		// }
 	</script>
 	<script type="text/javascript">
 		function dL(aId){	
@@ -111,9 +109,10 @@
 						document.getElementById(obj).innerHTML = like_count;
 						$('#'+ico).removeClass('fa-heart');
 						$('#'+ico).addClass('fa-heart-o');
-					}
+						}
 					else if (response == 'notdone'){
 						// console.log('fail');
+						//fails goes here
 					}
 				}
 			});

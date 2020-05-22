@@ -117,7 +117,10 @@ class Article_model extends CI_Model{
 			$article_poster_id = $this->db->get('articles')->row_array()['article_poster_id'];
 			if($_SESSION['userid'] == $article_poster_id){
 				unset($new_data['submit']);
-				$this->db->where('article_id',$article_id);
+				$new_data['article_tags'] = implode(",", $new_data['article_tags']);
+				//print_r($new_data);
+				$this->db->where('article_id',$article_id);	
+				$this->db->query("UPDATE `articles` SET `article_tags` = '".$new_data['article_tags']."' WHERE `article_id` = '".$article_id."'");
 				return array('type'=>$this->db->update('articles',$new_data));
 			}
 			else{
@@ -165,6 +168,18 @@ class Article_model extends CI_Model{
 		else{
 			return array('article_is_like'=>false);
 		}
+	}
+
+	public function getAvalTags(){
+		$this->db->select('tag_name');
+		$qs = $this->db->get('aval_tags');
+		$r = array();
+		$i=0;
+		foreach ($qs->result_array() as $q) {
+			$r[$i] = $q['tag_name'];
+			$i++;
+		}
+		return $r;
 	}
 }
 
