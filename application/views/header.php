@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Dream Blog</title>
+	<title>Dream Blog v1.0 (Beta)</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+	<link rel="icon" type="image/png" href="<?=base_url('/dp_logo.png')?>">
 	<script
 	src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="

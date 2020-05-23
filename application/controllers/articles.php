@@ -11,7 +11,7 @@ class Articles extends MY_Controller{
 		if($this->checkSession()){
 			$f = $this->getDetails($_SESSION['userid']);
 			$user_tags = $f['user_tags'];
-			$as =$this->am->m_get_articles($user_tags);
+			$as =$this->am->m_get_articles_forUser($user_tags);
 		}
 		else{
 			$as =$this->am->m_get_articles_all();
@@ -29,7 +29,7 @@ class Articles extends MY_Controller{
 		}
 
 		$data['articles'] = $articles; 
-		//$this->c_debud($data['articles']);
+		//$this->c_debug($data['articles']);
 		$this->load->view('articles_view',$data);
 	}
 
@@ -79,10 +79,11 @@ class Articles extends MY_Controller{
 		$data['article_time'] = NULL;
 		$data['article_poster_id'] = $_SESSION['userid'];
 		$data['article_tags_noString'] = $this->input->post('article_tags[]');
-		foreach ($data['article_tags_noString'] as $x) {
-			$data['article_tags'] = $data['article_tags'].",".$x;
+		if (is_array($data['article_tags_noString'])) {
+			$data['article_tags'] = implode(",", $data['article_tags_noString']);
 		}
 		unset($data['article_tags_noString']);
+		//$this->c_debug($data);
 		$config = array(
 
 					array('field' => 'article_title',
@@ -101,12 +102,11 @@ class Articles extends MY_Controller{
 		if($this->form_validation->run()){
 			if($this->am->m_add_article($data)){
 
-				$data['curr_msg'] = "One Article Added !";
-				$this->load->view('articles_view',$data);
+				redirect($this->rBase());
 			}
 			else{
 				$data['curr_msg'] = "Something went wrong<br>Please try again!";
-				$this->load->view('articles_view',$data);
+				redirect($this->rBase());
 			}
 			
 		}
@@ -170,22 +170,8 @@ class Articles extends MY_Controller{
 	public function delete_article(){
 		$this->load->model('article_model','am');
 		$d = $this->am->m_delete_article($this->uri->segment(3));
-		$as = $this->am->m_get_articles_all();
-		$articles = array();
-		$i = 0;
-		foreach ($as as $a) {
-			$a = array_merge($a,$this->getDetails($a['article_poster_id']));
-			$articles[$i] = $a;
-			$i++;
-		}
-		$data['articles'] = $articles; 
-		if($d['type']){
-			$data['curr_msg'] = "One Article Deleted!";
-		}
-		else{
-			$data['curr_msg'] = $d['error'];
-		}
-		$this->load->view('articles_view',$data);
+		
+		redirect($this->rBase());
 	}
 
 	public function update_article(){
@@ -194,24 +180,7 @@ class Articles extends MY_Controller{
 		// $this->c_debug($new_data);
 
 		$u = $this->am->m_update_article($this->uri->segment(3),$new_data);
-		$as = $this->am->m_get_articles_all();
-		$articles = array();
-		$i = 0;
-		foreach ($as as $a) {
-			$a = array_merge($a,$this->getDetails($a['article_poster_id']));
-			$a = array_merge($a,$this->am->like_calc($a['article_id']));
-			$a = array_merge($a,$this->am->is_like($a['article_id']));
-			$articles[$i] = $a;
-			$i++;
-		}
-		$data['articles'] = $articles; 
-		if($u['type']){
-			$data['curr_msg'] = "One Article updated! ";
-		}
-		else{
-			$data['curr_msg'] = $u['error'];
-		}
-		$this->load->view('articles_view',$data);
+		redirect($this->rBase());
 	}
 
 	public function like(){

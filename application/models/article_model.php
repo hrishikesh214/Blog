@@ -53,7 +53,7 @@ class Article_model extends CI_Model{
 		}
 	}
 
-	public function m_get_articles($tags){
+	public function m_get_articles_forUser($tags){
 		$articles = $this->m_get_articles_all();
 		$final_articles = array();
 		$req_tags = $this->m_get_tags($tags);
@@ -61,12 +61,13 @@ class Article_model extends CI_Model{
 			$article_array_tags = $this->m_get_tags($article['article_tags']);
 			foreach ($req_tags as $req_tag) {
 				$check = in_array($req_tag, $article_array_tags);
-				if($check){
+				if($check || $article['article_poster_id'] == $_SESSION['userid']){
 					array_push($final_articles, $article);
 					break; 
 				}
 			}
 		}
+
 		return $final_articles;
 	}
 

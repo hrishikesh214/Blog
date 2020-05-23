@@ -12,7 +12,7 @@
 		</div>
 		<div class="col-lg-6">
 			<div class="card border border">
-				<div class="card-header bg-primary text-white h2">Signup</div>
+				<div class="card-header bg-dark text-white h2">Signup</div>
 					<div class="card-body">
 							<form method="post" action="<?=base_url('/Signup/insert')?>" class="form">
 						<div class="form-group">
@@ -41,10 +41,12 @@
 						</div>
 						<div class="form-group">
 							<legend for="username">Your Tags</legend>
-							<span class="text-info">(Use ',' to separate two tags)</span>
-							<input class="form-control" 
-							value="<?php if(isset($user_tags)){echo $user_tags;}?>" 
-							type="text" name="user_tags" placeholder="Enter Tags">
+							<?php foreach ($aval_tags as $tag) :?>			
+								<div class="form-check form-check-inline">
+									<input name="user_tags[]" type="checkbox" class="form-check-input" value="<?=$tag?>">
+									<label class="form-check-label"><?=$tag?></label>
+								</div>		
+							<?php endforeach ?>
 						</div>
 						<div class="form-group">
 							<legend for="password">Password</legend>
@@ -59,12 +61,12 @@
 							<a class="link" href="<?=base_url('/Login')?>">Already  Have Account?</a>
 						</div>
 						<div class="form-group">
-							<input type="submit" name="submit" class="btn btn-primary" value="Sign Up">
+							<input type="submit" name="submit" class="btn btn-success" value="Sign Up">
 						</div>
 						</center>
 						</form>
 					</div>
-					<div class="card-footer bg-primary text-white"></div>
+					<div class="card-footer bg-dark text-white"></div>
 			</div>
 		</div>
 		

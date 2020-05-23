@@ -40,7 +40,7 @@ if(isset($_SESSION['userid'])){
 		<?=$article['article_title'] ?>
 		<?php if(isset($_SESSION['userid'])): if ($_SESSION['userid'] == $article['article_poster_id']): ?>
 			<a href="<?=base_url("/Articles/Settings/".$article['article_id'])?>">
-				<span class="float-sm-right text-white fa fa-cog"></span>	
+				<span class="float-right text-white fa fa-cog"></span>	
 			</a>
 		<?php endif ?>
 		<?php endif ?>

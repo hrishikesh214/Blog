@@ -2,14 +2,19 @@
 
 defined('BASEPATH') or exit('Basepath not defined');
 
-class Signup extends CI_Controller{
+class Signup extends MY_Controller{
 	public function index(){
-		$this->load->view('signup_form');
+		$this->load->model('Article_model','am');
+		$data['aval_tags'] = $this->am->getAvalTags();
+		// $this->c_debug($data['aval_tags']);
+		$this->load->view('signup_form',$data);
 	}
 
 	public function insert(){
 		$this->load->model('signup_model','sm');
 		$new_data = $this->input->post();
+		$new_data['user_tags'] = implode(",", $new_data['user_tags']);
+		//$this->c_debug($new_data);
 		$config = array(
 			array(
 				'field' => 'username',
@@ -76,6 +81,8 @@ class Signup extends CI_Controller{
 			redirect(base_url());
 		}
 		else{
+			$this->load->model('Article_model','am');
+			$new_data['aval_tags'] = $this->am->getAvalTags();
 			$this->load->view('signup_form',$new_data);
 		}
 
