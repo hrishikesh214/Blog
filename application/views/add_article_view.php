@@ -12,7 +12,7 @@
 					</div>
 					<div class="form-group">
 						<legend>Body</legend>
-						<textarea name="article_body" style="height: 30vh;" class="form-control"><?=isset($article_body)?$article_body:''?></textarea>
+						<textarea id="articleEditor" name="article_body" style="height: 30vh;" class="form-control"><?=isset($article_body)?$article_body:''?></textarea>
 					</div>
 					<div class="form-group">
 						<legend>Tags</legend>

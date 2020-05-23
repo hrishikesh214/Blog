@@ -15,7 +15,9 @@
 					</div>
 					<div class="form-group">
 						<legend>Body</legend>
-						<textarea name="article_body" style="height: 30vh;" class="form-control"><?=isset($article['article_body'])?$article['article_body']:''?></textarea>
+						<textarea name="article_body" id="articleEditor">
+				            <?=isset($article['article_body'])?$article['article_body']:''?>
+				        </textarea>
 					</div>
 					<div class="form-group">
 						<legend>Tags</legend>
@@ -41,5 +43,6 @@
 		</div>
 	</div>
 </div>
+
 
 <?php require 'footer.php'; ?>
