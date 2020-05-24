@@ -64,10 +64,17 @@ class Articles extends MY_Controller{
 	}
 
 	public function add_article(){
-		$this->load->model('article_model','am');
-		$data['aval_tags'] = $this->am->getAvalTags();
-		//$this->c_debug($data['aval_tags']);
-		$this->load->view('add_article_view',$data);
+		if($this->checkSession()){
+			$this->load->model('article_model','am');
+			$data['aval_tags'] = $this->am->getAvalTags();
+			//$this->c_debug($data['aval_tags']);
+			$this->load->view('add_article_view',$data);
+		}
+		else{
+			$_SESSION['curr_msg'] = "Please Login first!";
+			$this->rBase();
+		}
+		
 	}
 	public function post_article(){
 		$this->load->model('article_model','am');
