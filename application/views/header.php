@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Dream Blog v1.3 (Beta)</title>
+	<title>Dream Blog v1.4 (Beta)</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/png" href="<?=base_url('/dp_logo.png')?>">
 	<!-- Jquery CDN Link -->
