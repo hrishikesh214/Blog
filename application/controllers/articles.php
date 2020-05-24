@@ -125,7 +125,10 @@ class Articles extends MY_Controller{
 	}
 
 	public function Settings(){
-
+		if ($this->uri->segment(3) == NULL || $this->uri->segment(3) == " ") {
+			$_SESSION['curr_msg'] = "Forbidden Access";
+			$this->rBase();
+		}
 		$article_id = intval($this->uri->segment(3));
 		//echo $article_id;
 		$this->load->model('article_model','am');
@@ -156,6 +159,10 @@ class Articles extends MY_Controller{
 
 	public function confirm_delete(){
 		if($this->checkSession()){
+			if ($this->uri->segment(3) == NULL || $this->uri->segment(3) == " ") {
+			$_SESSION['curr_msg'] = "Forbidden Access";
+			$this->rBase();
+		}
 			$data['cdm'] = intval($this->uri->segment(3));
 			$this->load->view('confirm_delete_view',$data);
 		}
@@ -166,6 +173,10 @@ class Articles extends MY_Controller{
 	}
 
 	public function delete_article(){
+		if ($this->uri->segment(3) == NULL || $this->uri->segment(3) == " ") {
+			$_SESSION['curr_msg'] = "Forbidden Access";
+			$this->rBase();
+		}
 		$this->load->model('article_model','am');
 		$d = $this->am->m_delete_article($this->uri->segment(3));
 		
@@ -173,6 +184,10 @@ class Articles extends MY_Controller{
 	}
 
 	public function update_article(){
+		if ($this->uri->segment(3) == NULL || $this->uri->segment(3) == " ") {
+			$_SESSION['curr_msg'] = "Forbidden Access";
+			$this->rBase();
+		}
 		$this->load->model('article_model','am');
 		$new_data=$this->input->post();
 		// $this->c_debug($new_data);
@@ -194,20 +209,34 @@ class Articles extends MY_Controller{
 			}
 		}
 		else{
+			$_SESSION['curr_msg'] = "Forbidden Access";
 			redirect(base_url());
 		}
 	}
 
 	public function Share(){
 		$article_id = intval($this->uri->segment(3));
+		if($article_id == NULL || $article_id == " "){
+			$_SESSION['curr_msg'] = "Forbidden Access";
+			$this->rBase();
+		}
+		
 		$this->load->model('article_model','am');
-		$q = $this->am->getArticle($article_id);
-		$q = array_merge($q,$this->getDetails($q['article_poster_id']));
-		$q = array_merge($q,$this->am->like_calc($q['article_id']));
-		if($this->checkSession()){$q = array_merge($q,$this->am->is_like($q['article_id']));}
-		$data['articles'][0] = $q;
-		// $this->c_debug($data['articles']);
-		$this->load->view('articles_view',$data);
+		$result = $this->am->getArticle($article_id);
+		if($result['type']){
+			$q = $result['value'];
+			$q = array_merge($q,$this->getDetails($q['article_poster_id']));
+			$q = array_merge($q,$this->am->like_calc($q['article_id']));
+			if($this->checkSession()){$q = array_merge($q,$this->am->is_like($q['article_id']));}
+			$data['articles'][0] = $q;
+			//$this->c_debug($data['articles']);
+			$this->load->view('articles_view',$data);
+		}
+		else{
+			$_SESSION['curr_msg'] = "No Article Found!";
+			$this->rBase();
+		}
+		
 	}
 }
 

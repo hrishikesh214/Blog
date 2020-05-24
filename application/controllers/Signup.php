@@ -11,6 +11,10 @@ class Signup extends MY_Controller{
 	}
 
 	public function insert(){
+		if (empty($this->input->post())) {
+		    $_SESSION['curr_msg'] = "Forbidden Access!";
+		    $this->rBase();
+		} 
 		$this->load->model('signup_model','sm');
 		$new_data = $this->input->post();
 		$new_data['user_tags'] = implode(",", $new_data['user_tags']);

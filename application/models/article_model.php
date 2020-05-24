@@ -186,8 +186,13 @@ class Article_model extends CI_Model{
 	public function getArticle($article_id){
 		$this->db->select("*");
 		$this->db->where('article_id',$article_id);
-		$result = $this->db->get('articles')->row_array();
-		return $result;
+		$result = $this->db->get('articles');
+		if($result->num_rows()>0){
+			return array('type'=>true,'value'=>$result->row_array());
+		}
+		else{
+			return array('type'=>false);
+		}
 	}
 }
 
