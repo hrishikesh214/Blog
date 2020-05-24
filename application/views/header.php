@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Dream Blog v1.0 (Beta)</title>
+	<title>Dream Blog v1.3 (Beta)</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/png" href="<?=base_url('/dp_logo.png')?>">
+	<!-- Jquery CDN Link -->
 	<script
 	src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
 
+	<!-- PopperJS CDN Link -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0-next.1/esm/popper.js" ></script>
 
+	<!-- Bootstrap CDN Link -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	
+	<!-- FontAwesome CDN Link -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 	
+	<!-- CKEditor CDN Link -->
 	<script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
 	<?php 
   	if (isset($_SESSION['curr_msg'])) {
@@ -92,10 +97,6 @@
 		function redirect_base(){
 			window.location='<?=base_url()?>';
 		}
-		// function refreshPage () {
-		// 	var page_y = $( document ).scrollTop();
-		// 	window.location.href = window.location.href + '?page_y=' + page_y;
-		// }
 	</script>
 	<script type="text/javascript">
 		function dL(aId){	

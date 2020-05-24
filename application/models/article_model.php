@@ -182,6 +182,13 @@ class Article_model extends CI_Model{
 		}
 		return $r;
 	}
+
+	public function getArticle($article_id){
+		$this->db->select("*");
+		$this->db->where('article_id',$article_id);
+		$result = $this->db->get('articles')->row_array();
+		return $result;
+	}
 }
 
 

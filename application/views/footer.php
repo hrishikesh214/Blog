@@ -29,12 +29,11 @@
             .catch( error => {
                 console.error( error );
             } );
+            window.onload = () => {
+			   let bannerNode = document.querySelector('[alt="www.000webhost.com"]').parentNode.parentNode;
+			   bannerNode.parentNode.removeChild(bannerNode);
+			}
     </script>
-  	<?php 
-  	if (isset($_SESSION['curr_msg'])) {
-  		echo '<script>alert("1");</script>';
-  	}
-
-  	 ?>
+  	
 </body>
 </html>

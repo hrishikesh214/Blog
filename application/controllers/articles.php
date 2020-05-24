@@ -182,7 +182,7 @@ class Articles extends MY_Controller{
 	}
 
 	public function like(){
-		if($this->checkSession()){
+		if(isset($_SESSION['userid'])){
 			$this->load->model('article_model','am');
 			$ai = intval($this->uri->segment(3));
 			$l = $this->am->m_update_like($ai);
@@ -196,6 +196,18 @@ class Articles extends MY_Controller{
 		else{
 			redirect(base_url());
 		}
+	}
+
+	public function Share(){
+		$article_id = intval($this->uri->segment(3));
+		$this->load->model('article_model','am');
+		$q = $this->am->getArticle($article_id);
+		$q = array_merge($q,$this->getDetails($q['article_poster_id']));
+		$q = array_merge($q,$this->am->like_calc($q['article_id']));
+		if($this->checkSession()){$q = array_merge($q,$this->am->is_like($q['article_id']));}
+		$data['articles'][0] = $q;
+		// $this->c_debug($data['articles']);
+		$this->load->view('articles_view',$data);
 	}
 }
 

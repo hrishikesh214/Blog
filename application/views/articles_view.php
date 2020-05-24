@@ -1,4 +1,26 @@
 <?php 
+
+$modal = '
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        ...
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>';
+
 if(isset($_SESSION['userid'])){
 		$like_color= "danger";
 	}
@@ -38,12 +60,18 @@ if(isset($_SESSION['userid'])){
 <div class="card">
 	<div class="card-header bg-dark text-white">
 		<?=$article['article_title'] ?>
-		<?php if(isset($_SESSION['userid'])): if ($_SESSION['userid'] == $article['article_poster_id']): ?>
-			<a href="<?=base_url("/Articles/Settings/".$article['article_id'])?>">
-				<span class="float-right text-white fa fa-cog"></span>	
-			</a>
-		<?php endif ?>
-		<?php endif ?>
+		<div class="float-right">
+			<button type="button" style="border:none;" class="bg-dark" data-toggle="modal" data-target="#M_<?=$article['article_id']?>">
+			  <span class="text-white fa fa-share-alt"></span>
+			</button>
+					
+			<?php if(isset($_SESSION['userid'])): if ($_SESSION['userid'] == $article['article_poster_id']): ?>
+				<a href="<?=base_url("/Articles/Settings/".$article['article_id'])?>">
+					<span class="text-white fa fa-cog"></span>	
+				</a>
+			<?php endif ?>
+			<?php endif ?>
+		</div>
 	</div>
 	<div class="card-title"><?="By <strong>".$article['firstname']." ".$article['lastname']?> </strong> at <?=$article['article_time'] ?></div>
 	<div class="card-body">
@@ -57,6 +85,25 @@ if(isset($_SESSION['userid'])){
 		</div>
 	</div>
 </div><br><br>
+
+<div class="modal fade" id="M_<?=$article['article_id']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Copy Link</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?= base_url('/Articles/Share/'.$article['article_id'])?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <?php endforeach ?>
 <?php endif ?>
