@@ -53,7 +53,7 @@ class Profile extends MY_Controller{
 			$this->load->model('profile_model','pm');
 			if($new_details['password'] != $new_details['c_password']){
 				$data['details'] = $this->getDetails($_SESSION['userid']);
-				$data['curr_msg'] = "Password didn't matched with the confirm password!";
+				$_SESSION['curr_msg'] = "Password didn't matched with the confirm password!";
 				$this->load->view('change_profile_view',$data);
 			}
 			else{
@@ -69,7 +69,7 @@ class Profile extends MY_Controller{
 				
 				if($this->pm->update($new_details,$isPassChange)){
 					$data['details'] = $this->getDetails($_SESSION['userid']);
-					$data['curr_msg'] = "Profile edited successfully!";
+					$_SESSION['curr_msg'] = "Profile edited successfully!";
 					$this->load->view('profile_view',$data);
 				}
 			}

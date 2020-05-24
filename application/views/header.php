@@ -18,6 +18,13 @@
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 	
 	<script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
+	<?php 
+  	if (isset($_SESSION['curr_msg'])) {
+  		echo "<script>alert('".$_SESSION['curr_msg']."');</script>";
+  		unset($_SESSION['curr_msg']);
+  	}
+
+  	 ?>
 </head>
 <style type="text/css">
 	body{

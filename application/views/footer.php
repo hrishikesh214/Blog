@@ -30,6 +30,11 @@
                 console.error( error );
             } );
     </script>
-  
+  	<?php 
+  	if (isset($_SESSION['curr_msg'])) {
+  		echo '<script>alert("1");</script>';
+  	}
+
+  	 ?>
 </body>
 </html>

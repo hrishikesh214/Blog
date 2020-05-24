@@ -65,11 +65,11 @@ class Signup extends MY_Controller{
 
 		);
 		if($new_data['password'] != $new_data['cPassword']){
-			$new_data['curr_msg'] = "Password not matched with confirm password!";
+			$_SESSION['curr_msg'] = "Password not matched with confirm password!";
 			$this->load->view('signup_form',$new_data);
 		}
 		if($this->sm->checkUsername($new_data['username'])){
-			$new_data['curr_msg'] = "Username exists! Try another one";
+			$_SESSION['curr_msg'] = "Username exists! Try another one";
 			$this->load->view('signup_form',$new_data);
 		}
 		$new_data['userid'] = $this->sm->generateId();
