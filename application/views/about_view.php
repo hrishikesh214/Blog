@@ -3,7 +3,11 @@
 <div class="container-fluid">
 	<h2>DreamBlog</h2>
 	<div class=" h5">
-		<span class="text-info">DreamBlog</span> is a website where you can create and post blogs. It is made with <span class="text-info">PHP</span> using OOP(Object Oriented Programming) Concept. This Web Application is still <span class="text-info">under Development</span>. This Website is hosted as <span class="text-info">Beta</span> test version. 
+		<span class="text-info">DreamBlog</span> is a website where you can create and post blogs. This Web Application is still <span class="text-info">under Development</span>. This Website is hosted as <span class="text-info">Beta</span> test version. 
+	</div>
+	<h2>About Developer</h2>
+	<div class=" h5">
+		Website is developed by <a style="text-decoration: none;" href="http://hrishikesh214.github.io/Me">Hrishikesh</a> 
 	</div>
 </div>
 <br><br>

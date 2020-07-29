@@ -2,10 +2,10 @@
 	</div>
 <!-- </div>
 </div> -->
-	<footer class="navbar bg-primary navbar-dark fixed-bottom">
+	<!-- <footer class="navbar bg-primary navbar-dark fixed-bottom">
 		<div class="navbar-brand"></div>
-		<div class="navbar-text">Made By <span class="text-dark">Hrishikesh</span> <!-- With <span class="text-dark">CodeIgniter</span> --></div>
-	</footer>
+		<div class="navbar-text">Made By <span class="text-dark">Hrishikesh</span>
+	</footer> -->
 <script>
         ClassicEditor
             .create( document.querySelector( '#articleEditor' ),{
@@ -33,6 +33,12 @@
 			   let bannerNode = document.querySelector('[alt="www.000webhost.com"]').parentNode.parentNode;
 			   bannerNode.parentNode.removeChild(bannerNode);
 			}
+			$(document).ready(function(){
+				$('.wrapper').addClass('wrapper-animate');
+				setTimeout(function(){
+					$('.wrapper').remove();
+				},2000);
+			});
     </script>
   	
 </body>
