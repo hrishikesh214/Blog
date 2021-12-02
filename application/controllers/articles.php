@@ -17,11 +17,13 @@ class Articles extends MY_Controller{
 			$as =$this->am->m_get_articles_all();
 		}
 		//$this->c_debug($as);
-
 		$articles = array();
 		$i = 0;
 		foreach ($as as $a) {
-			$a = array_merge($a,$this->getDetails($a['article_poster_id']));
+			$user_detail = $this->getDetails($a['article_poster_id']);
+				$a = array_merge($a,$user_detail);
+
+			
 			$a = array_merge($a,$this->am->like_calc($a['article_id']));
 			if($this->checkSession()){$a = array_merge($a,$this->am->is_like($a['article_id']));}
 			$articles[$i] = $a;

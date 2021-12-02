@@ -180,6 +180,7 @@ class Article_model extends CI_Model{
 			$r[$i] = $q['tag_name'];
 			$i++;
 		}
+		array_push($r,'default');
 		return $r;
 	}
 

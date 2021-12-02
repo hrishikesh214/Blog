@@ -17,6 +17,9 @@ class Signup extends MY_Controller{
 		} 
 		$this->load->model('signup_model','sm');
 		$new_data = $this->input->post();
+		if(!isset($new_data['user_tags'])){
+			$new_data['user_tags'] = [];
+		}
 		$new_data['user_tags'] = implode(",", $new_data['user_tags']);
 		//$this->c_debug($new_data);
 		$config = array(
