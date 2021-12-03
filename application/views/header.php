@@ -403,7 +403,7 @@
 	</style>
 
 	<body>
-		<div class="wrapper">
+		<!-- <div class="wrapper">
 			<div class='body'>
 				<span>
 					<span></span>
@@ -424,11 +424,11 @@
 			</div>
 			<h1>Loading</h1>
 
-		</div>
+		</div> -->
 		<script type="text/javascript">
-			$(document).ready(function(){
-				$('.wrapper').css('display:none');
-			});
+			// $(document).ready(function(){
+			// 	// $('.wrapper').css('display:none');
+			// });
 			function redirect_base(){
 				window.location='<?=base_url()?>';
 			}
